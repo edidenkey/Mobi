@@ -48,69 +48,64 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Card(
                   elevation: 10.0,
                   child: Container(
-                    height: 300.0,
-                    width:300.0,
-                    child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0,vertical: 20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text('Connexion',
-                            style: TextStyle(color: Colors.black38,fontFamily: 'OpenSans',fontSize: 30.0,fontWeight: FontWeight.bold),),
-                          SizedBox(height: 20,),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              labelText: 'Username/Pseudo',
-                            ),
-                            validator: (String value) {
-                              return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
-                            },
+                    height: 330.0,
+                    width:350.0,
+                    child:  Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,vertical: 20.0),
+                          child: ListView(
+                            children: <Widget>[
+                              Text('Connexion',
+                                style: TextStyle(color: Colors.black38,fontFamily: 'OpenSans',fontSize: 30.0,fontWeight: FontWeight.bold),),
+                              SizedBox(height: 20,),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: 'Username/Pseudo',
+                                ),
+                                validator: (String value) {
+                                  return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                                },
+                              ),
+                              SizedBox(height: 10,),
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: 'Mot de passe',
+                                ),
+                                validator: (String value) {
+                                  return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                                },
+                              ),
+                              SizedBox(height: 20,),
+                              Container(
+                                width: 150.0,
+                                child: RaisedButton(
+                                  elevation: 5.0,
+                                  onPressed: () {
+                                    Navigator.pushReplacementNamed(context, '/homePage');
+                                  },
+                                  padding: EdgeInsets.all(15.0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0)
+                                  ),
+                                  color: Colors.purple,
+                                  child: Text('VALIDER', style: TextStyle(
+                                      color: Colors.white,
+                                      letterSpacing: 1.5,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'OpenSans'
+                                  ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 10,),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              labelText: 'Mot de passe',
-                            ),
-                            validator: (String value) {
-                              return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
-                            },
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
                 ),
-              ),
               Positioned(
-                top: 437.0,
-                right: 50.0,
-                child: Container(
-                  width: 150.0,
-                  child: RaisedButton(
-                    elevation: 5.0,
-                    onPressed: () {
-                   Navigator.pushReplacementNamed(context, '/homePage');
-                    },
-                    padding: EdgeInsets.all(15.0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    color: Colors.purple,
-                    child: Text('VALIDER', style: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'OpenSans'
-                    ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 530,
+                top: 550,
                 child: GestureDetector(
                   onTap: () {
 // Navigator.push(context, MaterialPageRoute(builder: (context)=>PageAdminFournisseur()));

@@ -1,9 +1,14 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:mobiapp/coLocation.dart';
 import 'package:mobiapp/location.dart';
+import 'package:mobiapp/model/annonce.dart';
 import 'package:mobiapp/publication.dart';
 import 'package:mobiapp/recherche.dart';
 import 'package:mobiapp/vente.dart';
+
+import 'main.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -13,6 +18,38 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   PageController _myPage = PageController(initialPage: 0);
+  List<Annonce> ope;
+
+  List<Annonce> parseAnnonce(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+    return parsed.map<Annonce>((json) => Annonce.fromJson(json)).toList();
+  }
+
+  Future<List<Annonce>> getAnnonce() async{
+
+    final response = await http.get(
+      Uri.parse("http://51.89.149.68:8080/mobi_article/api/annonces"),
+      headers: <String,String>{
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    );
+
+    if(response.statusCode < 200 || response.statusCode > 400 || json == null){
+      print(response.statusCode);
+    }if(response.statusCode==200){
+      ope = parseAnnonce(response.body);
+      print(ope);
+      return ope;
+    }
+
+  }
+
+  @override
+  void initState() {
+    getAnnonce();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +59,16 @@ class _HomepageState extends State<Homepage> {
           elevation: 5.0,
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.search),
+              icon: const Icon(Icons.share),
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>RecherchePage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>PublicationPage()));
               },
             ),
             IconButton(
               icon: const Icon(Icons.person),
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+              },
             ),
           ],
           title: Text('mobi', style: TextStyle(fontFamily: 'Montseratt', fontSize: 20.0,color: Colors.white,fontWeight: FontWeight.bold,)),
@@ -61,9 +100,9 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PublicationPage()));},
+            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>RecherchePage()));},
             backgroundColor: Colors.purple,
-            child:Icon(Icons.share)
+            child:Icon(Icons.search)
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(

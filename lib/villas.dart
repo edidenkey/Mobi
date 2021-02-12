@@ -13,7 +13,7 @@ class _VillasState extends State<Villas> {
     {
       'id':'1',
       'image':'assets/maison1.jpg',
-      'quartier':'Djidjole',
+      'quartier':'Agoe Telessou',
       'prix':'10.000',
     },
     {
@@ -84,7 +84,7 @@ class SingleVilla extends StatelessWidget {
                           height: 120.0,
                           width: 180.0,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Colors.black12,
                               borderRadius: BorderRadius.circular(10.0)
                           ),
                           child: Padding(
@@ -94,21 +94,28 @@ class SingleVilla extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
 
-                                Text(quartier,
+                                Text(prix,
                                   style: TextStyle(
+                                      color: Colors.grey,
                                       fontSize: 22.0,
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1.2),),
-                                Text(quartier,
-                                  style: TextStyle(
-                                    color: Colors.grey,),),
+                                Row(
+                                  children: [
+                                    Icon(Icons.location_on,size: 10.0,color: Colors.grey,),
+                                    SizedBox(width: 5.0,),
+                                    Text(quartier,
+                                      style: TextStyle(
+                                        color: Colors.grey,),),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
                         )),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.white24,
                           borderRadius: BorderRadius.circular(20.0),
                           boxShadow: [BoxShadow(
                               color: Colors.black26,
@@ -121,36 +128,10 @@ class SingleVilla extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.0),
                               child: Image(
                                 height: 170.0,
-                                width: 140.0,
+                                width: 150.0,
                                 image: AssetImage(image),
                                 fit: BoxFit.cover,),
                             ),
-                          Positioned(
-                            left: 10.0,
-                            bottom: 10.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(prix,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 24.0,
-                                      letterSpacing: 1.2
-                                  ),),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(Icons.location_on,size: 10.0,color: Colors.white,),
-                                    SizedBox(width: 5.0,),
-                                    Text(prix,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     )

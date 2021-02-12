@@ -17,33 +17,7 @@ final List<Widget> imageSliders = imgList.map((item) => Container(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
         child: Stack(
           children: <Widget>[
-            Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(200, 0, 0, 0),
-                      Color.fromARGB(0, 0, 0, 0)
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                child: Text(
-                  'No. ${imgList.indexOf(item)} image',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            Image.asset(item, fit: BoxFit.cover, width: 500.0),
           ],
         )
     ),
@@ -58,11 +32,14 @@ class LocationPage extends StatefulWidget {
 class _LocationPageState extends State<LocationPage> {
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-          child: ListView(
-            children: <Widget>[
-              Column(
+          child: Column(
                 children: <Widget>[
                   CarouselSlider(
                     options: CarouselOptions(
@@ -73,17 +50,21 @@ class _LocationPageState extends State<LocationPage> {
                     ),
                     items: imageSliders,
                   ),
-                ],
-              ),
               SizedBox(height:10.0),
-              Center(
-                  child: Text('Section Location',style: TextStyle(fontWeight: FontWeight.w200,fontSize: 20.0,color: Colors.purple),)
+                  Center(
+                      child: Text('Section Location',style: TextStyle(fontWeight: FontWeight.w200,fontSize: 20.0,color: Colors.purple),)
+                  ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text('Villas',style: TextStyle(fontWeight: FontWeight.w200,fontSize: 16.0,color: Colors.purple),),
+                    ),
+                    Villas(),
+                  ],
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text('Villas',style: TextStyle(fontWeight: FontWeight.w200,fontSize: 16.0,color: Colors.purple),),
-              ),
-              Villas(),
             ],
           ),
     );

@@ -22,6 +22,7 @@ class _DetailsArticlesState extends State<DetailsArticles> {
             Stack(
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.only(left:5.0,right: 5.0,top: 30),
                   height: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -37,12 +38,13 @@ class _DetailsArticlesState extends State<DetailsArticles> {
                       borderRadius: BorderRadius.circular(30.0),
                       child: Image(
                         image: AssetImage(widget.image),
-                        fit: BoxFit.cover,),
+                        fit: BoxFit.fill,
+                        ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 30.0),
                   child:   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -68,43 +70,46 @@ class _DetailsArticlesState extends State<DetailsArticles> {
                     ],
                   ),
                 ),
-                Positioned(
-                  left: 20.0,
-                  bottom: 20.0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(widget.prix,
-                        style: TextStyle(
-                            color: Colors.purple,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30.0,
-                            letterSpacing: 1.2
-                        ),),
-                      Row(
-                        children: <Widget>[
-                          Icon(Icons.location_on,size: 15.0,color: Colors.purple,),
-                          SizedBox(width: 5.0,),
-                          Text(widget.quartier,
-                            style: TextStyle(
-                              color: Colors.purple,
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.bold
-                            ),),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text('Description',style: TextStyle(fontWeight: FontWeight.w200,fontSize: 16.0,color: Colors.purple),),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text('Appartement situé en plein coeur de Lomé avec une blle vue sur la lagune.Il possède trois chambres et deux salles de bain.En outre il dispose d\'un salon et d\'une salle à manger.',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.0,color: Colors.purple,),),
+            Expanded(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('Détails',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0,color: Colors.purple),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Prix',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0,color: Colors.purple),),
+                            Text(widget.prix,style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.0,color: Colors.purple),),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Emplacement',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0,color: Colors.purple),),
+                            Text(widget.quartier,style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.0,color: Colors.purple),),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text('Description',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.0,color: Colors.purple),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text('Appartement situé en plein coeur de Lomé avec une blle vue sur la lagune.Il possède trois chambres et deux salles de bain.En outre il dispose d\'un salon et d\'une salle à manger.',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 18.0,color: Colors.purple,),textAlign: TextAlign.justify,),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

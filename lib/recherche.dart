@@ -68,10 +68,10 @@ class _RecherchePageState extends State<RecherchePage> with SingleTickerProvider
 //      DeviceOrientation.portraitUp,
 //      DeviceOrientation.portraitDown,
 //    ]);
-    _controller = AnimationController(vsync: this,duration: duration);
-    _scaleAnimation = Tween<double>(begin: 1,end: 0.8).animate(_controller);
-    _menuScaleAnimation = Tween<double>(begin: 0.5,end: 1).animate(_controller);
-    _slideAnimation = Tween<Offset>(begin:Offset(-1, 0),end: Offset(0, 0)).animate(_controller);
+//     _controller = AnimationController(value: this,duration: duration);
+//     _scaleAnimation = Tween<double>(begin: 1,end: 0.8).animate(_controller);
+//     _menuScaleAnimation = Tween<double>(begin: 0.5,end: 1).animate(_controller);
+//     _slideAnimation = Tween<Offset>(begin:Offset(-1, 0),end: Offset(0, 0)).animate(_controller);
 
     super.initState();
   }
@@ -88,11 +88,222 @@ class _RecherchePageState extends State<RecherchePage> with SingleTickerProvider
     screenWidth = size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        elevation: 5.0,
+        title: Text('Recherche', style: TextStyle(fontFamily: 'Montseratt', fontSize: 20.0,color: Colors.white,fontWeight: FontWeight.bold,)),
+        centerTitle: true,
+      ),
+      body: Column(
         children: <Widget>[
-          resultatRecherche(context),
-          recherche(context),
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  SizedBox(height: 10.0,),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.location_on,color: Colors.purple,),
+                        SizedBox(width: 16.0,),
+                        PopupMenuButton(
+                          onSelected: (index){
+                            setState(() {
+                              selectedLoationIndex = index;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
+                            PopupMenuItem(
+                              child: Text(lieux[0],style: dropDownMenuItemStyle,),
+                              value: 0,
+                            ),
+                            PopupMenuItem(
+                              child: Text(lieux[1],style: dropDownMenuItemStyle,),
+                              value: 1,
+                            ),
+                            PopupMenuItem(
+                              child: Text(lieux[2],style: dropDownMenuItemStyle,),
+                              value: 2,
+                            )
+                          ],
+                          child: Row(
+                            children: <Widget>[
+                              Text(lieux[selectedLoationIndex],style: dropDownLabelStyle,),
+                              Icon(Icons.arrow_drop_down,color: Colors.black38,)
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                            onTap: (){
+                              setState(() {
+                                if(isCollapsed)
+                                  _controller.forward();
+                                else
+                                  _controller.reverse();
+                                isCollapsed = !isCollapsed;
+                              });
+                            },
+                            child: Icon(Icons.settings,color: Colors.black38,))
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10.0,),
+                  Text('Que souhaitez-vous\n trouver?',style:TextStyle(color: Colors.purple,fontSize: 20.0),textAlign: TextAlign.center,),
+                  SizedBox(height: 10.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Material(
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                      child: TextField(
+                        controller: TextEditingController(text: typeLocations[1]),
+                        style: dropDownMenuItemStyle,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 14.0,horizontal: 32.0),
+                            suffixIcon: InkWell(
+                              onTap: (){
+                              },
+                              child: Material(
+                                elevation: 2.0,
+                                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                child: Icon(Icons.search,),
+                              ),
+                            ),
+                            border: InputBorder.none
+                        ),
+                      ),
+                    ),),
+                ],
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              height: 300,
+              child: ListView(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text('Prix',style: TextStyle(color: Colors.black38,fontSize: 18.0),),
+                          // Icon(Icons.credit_card,color: Colors.black38,)
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'minimum',
+                              ),
+                              validator: (String value) {
+                                return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                  hintText: 'maximum'
+                              ),
+                              validator: (String value) {
+                                return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text('Surface',style: TextStyle(color: Colors.black38,fontSize: 18.0),),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'minimum',
+                              ),
+                              validator: (String value) {
+                                return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                  hintText: 'maximum'
+                              ),
+                              validator: (String value) {
+                                return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Ville',
+                    ),
+                    validator: (String value) {
+                      return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Quartier',
+                    ),
+                    validator: (String value) {
+                      return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Nombre de pièces',
+                    ),
+                    validator: (String value) {
+                      return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Nombre de salle de bain',
+                    ),
+                    validator: (String value) {
+                      return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Nombre de cuisine',
+                    ),
+                    validator: (String value) {
+                      return value.isEmpty ? 'Ce champ ne doit pas etre vide!' : null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
